@@ -119,8 +119,9 @@ typeOf(soap,skincare).
 typeOf(tomatoes,vegetable).
 %Deodrant is type of skincare
 typeOf(deodorant,skincare).
-
-
+typeOf(creditcard,money).
+typeOf(money,money).
+typeOf(cash,money).
 %Yesterday John went to the North Berkeley Safeway supermarket and bought two
 %pounds of tomatoes and a pound of ground beef
 
@@ -223,3 +224,10 @@ sells(X,Y):- hasbranch(X,U),typeOf(U,supermarket),typeOf(Y,Z),available(Z,superm
 hasbranch(X,U),typeOf(U,supermarket),available(Y,supermarket).
 
 %---------------------------------------------------------------------
+% If anyone shops at someplace for anything at some times then they pay money for that thing at that time at that place.
+pay(X,Z,Y,T):-shop(X,_,Y,T).
+
+% If someone has to pay money at sometime at a store which is of some type then they must bring that money to that place at that time.
+bring(X,Z,Y,T):-pay(X,Z,K,T),typeOf(K,Y),typeOf(Z,money).
+
+%------------------------------------------

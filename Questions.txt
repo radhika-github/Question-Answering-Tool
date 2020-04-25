@@ -48,6 +48,12 @@ g. Does Safeway sell deodorant? [Yes]
    false.
 
 h. Did John bring some money or a credit card to the supermarket? [Yes]
+   bring(john,money,supermarket,yesterday).
+   true .
+   bring(john,creditcard,supermarket,yesterday).
+   true .
+   bring(john,cash,supermarket,yesterday).
+   true .
 i. Does John have less money after going to the supermarket? [Yes]
 
 12.6
