@@ -42,6 +42,11 @@ f. What is John going to do with the tomatoes? [Eat them]
     false.
 
 g. Does Safeway sell deodorant? [Yes]
+   sells(safeway,pork).
+   true .
+   sells(safeway,shoes).
+   false.
+
 h. Did John bring some money or a credit card to the supermarket? [Yes]
 i. Does John have less money after going to the supermarket? [Yes]
 

@@ -1,96 +1,3 @@
-%Yesterday John went to the North Berkeley Safeway supermarket and bought two
-%pounds of tomatoes and a pound of ground beef
-
-
-%buys(john,beef).
-%-----------
-%John lives alone
-livesAlone(john).
-%Anyone who lives alone shops alone
-%Hence john shops alone
-shopsAlone(X):-livesAlone(X).
-%john shops tomatoees at safeway yesterday
-%If someone shops alone and buys then he is adult
-isa(X,adult):-shop(X,_,_,_),shopsAlone(X).
-isa(X,child):- !,\+ isa(X,adult).
-isa(X,child):- isa(X,adult), !, fail.
-%----------------------------------------------------
-%  Tomatoes have a unit weight of  0.5 pounds
-unitWeight(tomatoes,0.5).
-
-% If John shopped for tomatoes, he bought 2 pounds of tomatoes and 1 pund of beef.
-pounds(john,1,beef):-shop(john,beef,safeway,yesterday).
-pounds(john,2,tomatoes):-shop(john,tomatoes,safeway,yesterday).
-shop(john,beef,safeway,yesterday).
-shop(john,tomatoes,safeway,yesterday).
-
-% The number of tomatoes that john has is obtained by the no. of pounds/unit weight.
-number(john,X,tomatoes):-unitWeight(tomatoes,Y),pounds(john,Z,tomatoes),X is Z/Y.
-
-% If N>=M then N is larger or equal to M.
-largerorequal(N,M):-N>=M.
-
-% If John has some number of tomatoes and if it is larger or equal to some number then he has atleast that many number of tomatoes.
-hasatleast(john,Y,tomatoes):- number(john,X,tomatoes),largerorequal(X,Y).
-
-%--------------------------------------------------------------------------------------
-
-% If someone shopped for something somewhere sometime, then they bought that thing.
-bought(X,Y):-shop(X,Y,_,_).
-
-% If John bought something and if that thing is meat then John bought meat
-buys(X,Y):-bought(X,Z), typeOf(Z,Y).
-
-%---------------------------------------------------------------------------------------
-
-% Mary was buying tomatoes at safeway at the same time as john.
-shop(mary,tomatoes,safeway,T):-shop(john,tomatoes,safeway,T).
-
-% If someone buys something at some store at sometime then that person is at that store at that time.
-isAtStore(X,Y,Z):-shop(X,_,Y,Z).
-
-% If someone buys something at some stall at sometime then that person is at that stall at that time.
-isAtStall(X,Y,Z):-shop(X,Y,_,Z).
-
-% If someone is at some stall at some store, and if someone else is also at the  same stall and same store, then that person sees the other person
-sees(X,V):-isAtStore(X,Y,Z),isAtStall(X,U,Z),isAtStore(V,Y,Z),isAtStall(V,U,Z).
-
-% Or else they will not see each other.
-sees(X,V):-!, \+isAtStore(X,Y,Z); \+isAtStall(X,U,Z); \+isAtStore(V,Y,Z); \+isAtStall(V,U,Z), fail.
-
-% If X sees Y then Y also sees X.
-sees(Y,X):-sees(X,Y).
-
-%--------------------------------------------------------------------------------------------
-
-% If something is a vegetable then it originates from nature.
-originates(X,nature):-typeOf(X,vegetable).
-% If something is a skincare then it does not originate in nature.
-originates(X,nature):-typeOf(X,skincare), !, fail.
-%If something is of form something which orginates from man, then it is made in the supermarket.
-made(X,supermarket):- !,\+originates(X,nature).
-%---------------------------------------
-
-% If something is a Vegetable or meat, it can be eaten.
-can(X,eaten):-typeOf(X,vegetable);typeOf(X,meat).
-% Precedence of days
-after(yesterday,daybeforeyesterday).
-after(today, daybeforeyesterday).
-after(tomorrow, daybeforeyesterday).
-after(today,yesterday).
-after(tomorrow,yesterday).
-after(tomorrow,today).
-% Someone has something at sometime if he has shopped for it.
-has(X,Y,T):-shop(X,Y,_,T).
-% Someone eats something at sometime if someone has something at that time and if that thing can be eaten.
-whatWill(X,Y,T,eatThem):- has(X,Y,K), can(Y,eaten),after(T,K).
-
-
-
-%Tomatoes are type of vegetables
-typeOf(tomatoes,vegetable).
-%Deodrant is type of skincare
-typeOf(deodrant,skincare).
 typeOf(sausage_meat,meat).
 typeOf(stockfish,meat).
 typeOf(anchovy,meat).
@@ -204,3 +111,115 @@ typeOf(meat,food).
 typeOf(chicken,food).
 typeOf(fish,food).
 typeOf(beef,food).
+% Tops Maple road Supermarket is a type of Supermarket.
+typeOf(northBerkeleySafeway,supermarket).
+% Soap is a type of skin care product.
+typeOf(soap,skincare).
+%Tomatoes are type of vegetables
+typeOf(tomatoes,vegetable).
+%Deodrant is type of skincare
+typeOf(deodorant,skincare).
+
+
+%Yesterday John went to the North Berkeley Safeway supermarket and bought two
+%pounds of tomatoes and a pound of ground beef
+
+
+%buys(john,beef).
+%-----------
+%John lives alone
+livesAlone(john).
+%Anyone who lives alone shops alone
+%Hence john shops alone
+shopsAlone(X):-livesAlone(X).
+%john shops tomatoees at safeway yesterday
+%If someone shops alone and buys then he is adult
+isa(X,adult):-shop(X,_,_,_),shopsAlone(X).
+isa(X,child):- !,\+ isa(X,adult).
+isa(X,child):- isa(X,adult), !, fail.
+%----------------------------------------------------
+%  Tomatoes have a unit weight of  0.5 pounds
+unitWeight(tomatoes,0.5).
+
+% If John shopped for tomatoes, he bought 2 pounds of tomatoes and 1 pund of beef.
+pounds(john,1,beef):-shop(john,beef,northBerkeleySafeway,yesterday).
+pounds(john,2,tomatoes):-shop(john,tomatoes,northBerkeleySafeway,yesterday).
+shop(john,beef,northBerkeleySafeway,yesterday).
+shop(john,tomatoes,northBerkeleySafeway,yesterday).
+
+% The number of tomatoes that john has is obtained by the no. of pounds/unit weight.
+number(john,X,tomatoes):-unitWeight(tomatoes,Y),pounds(john,Z,tomatoes),X is Z/Y.
+
+% If N>=M then N is larger or equal to M.
+largerorequal(N,M):-N>=M.
+
+% If John has some number of tomatoes and if it is larger or equal to some number then he has atleast that many number of tomatoes.
+hasatleast(john,Y,tomatoes):- number(john,X,tomatoes),largerorequal(X,Y).
+
+%--------------------------------------------------------------------------------------
+
+% If someone shopped for something somewhere sometime, then they bought that thing.
+bought(X,Y):-shop(X,Y,_,_).
+
+% If John bought something and if that thing is meat then John bought meat
+buys(X,Y):-bought(X,Z), typeOf(Z,Y).
+
+%---------------------------------------------------------------------------------------
+
+% Mary was buying tomatoes at northBerkeleySafeway at the same time as john.
+shop(mary,tomatoes,northBerkeleySafeway,T):-shop(john,tomatoes,northBerkeleySafeway,T).
+
+% If someone buys something at some store at sometime then that person is at that store at that time.
+isAtStore(X,Y,Z):-shop(X,_,Y,Z).
+
+% If someone buys something at some stall at sometime then that person is at that stall at that time.
+isAtStall(X,Y,Z):-shop(X,Y,_,Z).
+
+% If someone is at some stall at some store, and if someone else is also at the  same stall and same store, then that person sees the other person
+sees(X,V):-isAtStore(X,Y,Z),isAtStall(X,U,Z),isAtStore(V,Y,Z),isAtStall(V,U,Z).
+
+% Or else they will not see each other.
+sees(X,V):-!, \+isAtStore(X,Y,Z); \+isAtStall(X,U,Z); \+isAtStore(V,Y,Z); \+isAtStall(V,U,Z), fail.
+
+% If X sees Y then Y also sees X.
+sees(Y,X):-sees(X,Y).
+
+%--------------------------------------------------------------------------------------------
+
+% If something is a vegetable then it originates from nature.
+originates(X,nature):-typeOf(X,vegetable).
+% If something is a skincare then it does not originate in nature.
+originates(X,nature):-typeOf(X,skincare), !, fail.
+%If something is of form something which orginates from man, then it is made in the supermarket.
+made(X,supermarket):- !,\+originates(X,nature).
+%---------------------------------------
+
+% If something is a Vegetable or meat, it can be eaten.
+can(X,eaten):-typeOf(X,vegetable);typeOf(X,meat).
+% Precedence of days
+after(yesterday,daybeforeyesterday).
+after(today, daybeforeyesterday).
+after(tomorrow, daybeforeyesterday).
+after(today,yesterday).
+after(tomorrow,yesterday).
+after(tomorrow,today).
+% Someone has something at sometime if he has shopped for it.
+has(X,Y,T):-shop(X,Y,_,T).
+% Someone eats something at sometime if someone has something at that time and if that thing can be eaten.
+whatWill(X,Y,T,eatThem):- has(X,Y,K), can(Y,eaten),after(T,K).
+
+%-------------------------------------------------------------
+
+% Tops has a branch called Tops Maple road supermarket
+hasbranch(safeway,northBerkeleySafeway).
+
+% Skin care products, vegetables, meat are available in supermarkets.
+available(skincare,supermarket).
+available(meat,supermarket).
+available(vegetable,supermarket).
+
+% Something sells something if it has a branch which is a supermarket which has those class of products
+sells(X,Y):- hasbranch(X,U),typeOf(U,supermarket),typeOf(Y,Z),available(Z,supermarket);
+hasbranch(X,U),typeOf(U,supermarket),available(Y,supermarket).
+
+%---------------------------------------------------------------------
