@@ -1,0 +1,30 @@
+Yesterday John went to the North Berkeley Safeway supermarket and bought two
+pounds of tomatoes and a pound of ground beef
+
+12.5
+a. Is John a child or an adult? [Adult]
+    isa(john,X).
+    X = adult.
+
+b. Does John now have at least two tomatoes? [Yes]
+   pound(john,X,tomatoes).
+   X = 2.
+
+c. Did John buy any meat? [Yes]
+   buys(john,X),typeOf(X,meat).
+   ̀X = beef.
+
+d. If Mary was buying tomatoes at the same time as John, did he see her? [Yes]
+e. Are the tomatoes made in the supermarket? [No]
+f. What is John going to do with the tomatoes? [Eat them] chicken
+g. Does Safeway sell deodorant? [Yes]
+h. Did John bring some money or a credit card to the supermarket? [Yes]
+i. Does John have less money after going to the supermarket? [Yes]
+
+12.6
+a. Are there other people in Safeway while John is there? [Yes—staff!]
+b. Is John a vegetarian? [No]
+c. Who owns the deodorant in Safeway? [Safeway Corporation]
+d. Did John have an ounce of ground beef? [Yes]
+e. Does the Shell station next door have any gas? [Yes]
+f. Do the tomatoes fit in John’s car trunk? [Yes]
