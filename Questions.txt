@@ -55,6 +55,8 @@ h. Did John bring some money or a credit card to the supermarket? [Yes]
    bring(john,cash,supermarket,yesterday).
    true .
 i. Does John have less money after going to the supermarket? [Yes]
+   moneyLeft(john,X,supermarket,after).
+   X = less .
 
 12.6
 a. Are there other people in Safeway while John is there? [Yes—staff!]

@@ -224,6 +224,7 @@ sells(X,Y):- hasbranch(X,U),typeOf(U,supermarket),typeOf(Y,Z),available(Z,superm
 hasbranch(X,U),typeOf(U,supermarket),available(Y,supermarket).
 
 %---------------------------------------------------------------------
+
 % If anyone shops at someplace for anything at some times then they pay money for that thing at that time at that place.
 pay(X,Z,Y,T):-shop(X,_,Y,T).
 
@@ -231,3 +232,17 @@ pay(X,Z,Y,T):-shop(X,_,Y,T).
 bring(X,Z,Y,T):-pay(X,Z,K,T),typeOf(K,Y),typeOf(Z,money).
 
 %------------------------------------------
+
+% If anyone shops at someplace for anything at some times then they pay money for that thing at that time at that place.
+% If someone who pays money at sometime at someplace of some type then he spent money that time in that type of place
+spentMoney(X,Z,T) :-pay(X,W,Y,T),typeOf(Y,Z),typeOf(W,money).
+
+% Define after and before yesterday
+after(after,yesterday).
+after(yesterday,before).
+
+% If someone spend money at someplace at some time then he had less money after that time at the same place.
+moneyLeft(W,less,Y,T):- spentMoney(W,Y,U),after(T,U).
+
+%------------------------------------------
+
