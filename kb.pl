@@ -127,7 +127,9 @@ typeOf(cash,money).
 
 
 %buys(john,beef).
-%-----------
+
+%-----------------------------------------------------------------------------------------------------------------------
+
 %John lives alone
 livesAlone(john).
 %Anyone who lives alone shops alone
@@ -138,14 +140,16 @@ shopsAlone(X):-livesAlone(X).
 isa(X,adult):-shop(X,_,_,_),shopsAlone(X).
 isa(X,child):- !,\+ isa(X,adult).
 isa(X,child):- isa(X,adult), !, fail.
-%----------------------------------------------------
-%  Tomatoes have a unit weight of  0.5 pounds
+
+%-----------------------------------------------------------------------------------------------------------------------
+
+% Tomatoes have a unit weight of  0.5 pounds
 unitWeight(tomatoes,0.5).
-unitWeight(tomatoes,1).
 
 % If John shopped for tomatoes, he bought 2 pounds of tomatoes and 1 pound of beef.
 pounds(john,1,beef):-shop(john,beef,northBerkeleySafeway,yesterday).
 pounds(john,2,tomatoes):-shop(john,tomatoes,northBerkeleySafeway,yesterday).
+pounds(mary,1,tomatoes):-shop(mary,tomatoes,northBerkeleySafeway,yesterday).
 shop(john,beef,northBerkeleySafeway,yesterday).
 shop(john,tomatoes,northBerkeleySafeway,yesterday).
 
@@ -156,7 +160,7 @@ number(P,X,I):-unitWeight(I,Y),pounds(P,Z,I),X is Z/Y.
 largerorequal(N,M):-N>=M.
 
 % If John has some number of tomatoes and if it is larger or equal to some number then he has atleast that many number of tomatoes.
-hasatleast(john,Y,tomatoes):- number(john,X,tomatoes),largerorequal(X,Y).
+hasatleast(P,Y,I):- number(P,X,I),largerorequal(X,Y).
 
 %--------------------------------------------------------------------------------------
 
@@ -198,6 +202,7 @@ made(X,supermarket):- !,\+originates(X,nature).
 
 % If something is a Vegetable or meat, it can be eaten.
 can(X,eaten):-typeOf(X,vegetable);typeOf(X,meat).
+
 % Precedence of days
 after(yesterday,daybeforeyesterday).
 after(today, daybeforeyesterday).
@@ -205,6 +210,7 @@ after(tomorrow, daybeforeyesterday).
 after(today,yesterday).
 after(tomorrow,yesterday).
 after(tomorrow,today).
+
 % Someone has something at sometime if he has shopped for it.
 has(X,Y,T):-shop(X,Y,_,T).
 % Someone eats something at sometime if someone has something at that time and if that thing can be eaten.
@@ -260,12 +266,31 @@ ounces(X,Y,Z):-pounds(X,W,Z), Y is W*16.
 % If John has some beef and if it is larger or equal to some number then he has atleast that many ounces of beef.
 hasAtleastOunces(X,U,Y):- ounces(X,V,Y),largerorequal(V,U).
 
-%----------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------------------------------
 
+% Capacity of John's car trunk is 4
 carTrunkCapacity(john,4).
+
+% Volume occupied by each pound of tomato is 1
 volume(tomatoes,1).
+
+% Volume occupied by each pound of beef is 1
 volume(beef,5).
+
+%Space occupied by the item bought by a person is number of pounds of item bought times the volume occupied by the item
 spaceOccupied(P,I,X):- pounds(P,W,I),volume(I,V), X is W*V.
+
+%If the space occupied by the number of pounds of item bought is than or equal to car trunk capacity of the person
+%then the item fits in car.
 fitInCar(P,W):- spaceOccupied(P,W,Y),carTrunkCapacity(P,X),largerorequal(X,Y).
 
-%--------------------------------------------------------------
+%-----------------------------------------------------------------------------------------------------------------------
+
+%If a person shops at supermarket then the supermarket is open at that time.
+%If the supermarket is open then the staff is present
+%Hence when a person is at the supermarket and shops any item then there are other people in safeway
+isOpen(P,L, T):- isAtStore(P,L,T).
+staffPresent(P,L,T):-isOpen(P,L,T).
+peopleAtStore(P,L,T):-staffPresent(P,L,T).
+
+%-----------------------------------------------------------------------------------------------------------------------

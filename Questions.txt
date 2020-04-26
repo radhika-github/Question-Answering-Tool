@@ -60,6 +60,11 @@ i. Does John have less money after going to the supermarket? [Yes]
 
 12.6
 a. Are there other people in Safeway while John is there? [Yes—staff!]
+    peopleAtStore(john,northBerkeleySafeway,yesterday).
+    true .
+    peopleAtStore(john,northBerkeleySafeway,today).
+    false.
+
 b. Is John a vegetarian? [No]
    isVeg(john).
    false .
@@ -73,5 +78,5 @@ e. Does the Shell station next door have any gas? [Yes]
 f. Do the tomatoes fit in John’s car trunk? [Yes]
     fitInCar(john,beef).
     false.
-    ?- fitInCar(john,tomatoes).
+    fitInCar(john,tomatoes).
     true.
