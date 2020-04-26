@@ -142,9 +142,9 @@ isa(X,child):- isa(X,adult), !, fail.
 %  Tomatoes have a unit weight of  0.5 pounds
 unitWeight(tomatoes,0.5).
 
-% If John shopped for tomatoes, he bought 2 pounds of tomatoes and 1 pund of beef.
+% If John shopped for tomatoes, he bought 2 pounds of tomatoes and 1 pound of beef.
 pounds(john,1,beef):-shop(john,beef,northBerkeleySafeway,yesterday).
-pounds(john,2,tomatoes):-shop(john,tomatoes,northBerkeleySafeway,yesterday).
+pounds(john,20,tomatoes):-shop(john,tomatoes,northBerkeleySafeway,yesterday).
 shop(john,beef,northBerkeleySafeway,yesterday).
 shop(john,tomatoes,northBerkeleySafeway,yesterday).
 
@@ -246,3 +246,22 @@ moneyLeft(W,less,Y,T):- spentMoney(W,Y,U),after(T,U).
 
 %------------------------------------------
 
+% If someone shops meat then he is non vegeterian
+isNonVeg(X):- shop(X,Y,_,_),typeOf(Y,meat).
+
+% If someone is not a non vegeterian then he is vegeterian
+isVeg(X):-!,\+isNonVeg(X).
+
+%------------------------------------------
+% If someone shopped 1 pound of something, then he bought 16 ounces of that thing.
+ounces(X,Y,Z):-pounds(X,W,Z), Y is W*16.
+
+% If John has some beef and if it is larger or equal to some number then he has atleast that many ounces of beef.
+hasAtleastOunces(X,U,Y):- ounces(X,V,Y),largerorequal(V,U).
+
+%----------------------------------------------------------------
+
+carCapacity(john,100).
+spaceOccupied(john,tomatoes,Y):- number(john,X,tomatoes), Y is X*10.
+calc(Y):-carCapacity(john,X),largerorequal(X,Y).
+fitInCar(john,tomatoes):- spaceOccupied(john,tomatoes,Y),calc(Y).

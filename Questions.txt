@@ -61,7 +61,13 @@ i. Does John have less money after going to the supermarket? [Yes]
 12.6
 a. Are there other people in Safeway while John is there? [Yes—staff!]
 b. Is John a vegetarian? [No]
+   isVeg(john).
+   false .
+   isVeg(mary).
+   true .
 c. Who owns the deodorant in Safeway? [Safeway Corporation]
 d. Did John have an ounce of ground beef? [Yes]
+   hasAtleastOunces(john,1,beef).
+   true .
 e. Does the Shell station next door have any gas? [Yes]
 f. Do the tomatoes fit in John’s car trunk? [Yes]
