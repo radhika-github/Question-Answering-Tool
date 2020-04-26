@@ -141,15 +141,16 @@ isa(X,child):- isa(X,adult), !, fail.
 %----------------------------------------------------
 %  Tomatoes have a unit weight of  0.5 pounds
 unitWeight(tomatoes,0.5).
+unitWeight(tomatoes,1).
 
 % If John shopped for tomatoes, he bought 2 pounds of tomatoes and 1 pound of beef.
 pounds(john,1,beef):-shop(john,beef,northBerkeleySafeway,yesterday).
-pounds(john,20,tomatoes):-shop(john,tomatoes,northBerkeleySafeway,yesterday).
+pounds(john,2,tomatoes):-shop(john,tomatoes,northBerkeleySafeway,yesterday).
 shop(john,beef,northBerkeleySafeway,yesterday).
 shop(john,tomatoes,northBerkeleySafeway,yesterday).
 
 % The number of tomatoes that john has is obtained by the no. of pounds/unit weight.
-number(john,X,tomatoes):-unitWeight(tomatoes,Y),pounds(john,Z,tomatoes),X is Z/Y.
+number(P,X,I):-unitWeight(I,Y),pounds(P,Z,I),X is Z/Y.
 
 % If N>=M then N is larger or equal to M.
 largerorequal(N,M):-N>=M.
@@ -261,7 +262,10 @@ hasAtleastOunces(X,U,Y):- ounces(X,V,Y),largerorequal(V,U).
 
 %----------------------------------------------------------------
 
-carCapacity(john,100).
-spaceOccupied(john,tomatoes,Y):- number(john,X,tomatoes), Y is X*10.
-calc(Y):-carCapacity(john,X),largerorequal(X,Y).
-fitInCar(john,tomatoes):- spaceOccupied(john,tomatoes,Y),calc(Y).
+carTrunkCapacity(john,4).
+volume(tomatoes,1).
+volume(beef,5).
+spaceOccupied(P,I,X):- pounds(P,W,I),volume(I,V), X is W*V.
+fitInCar(P,W):- spaceOccupied(P,W,Y),carTrunkCapacity(P,X),largerorequal(X,Y).
+
+%--------------------------------------------------------------

@@ -71,3 +71,7 @@ d. Did John have an ounce of ground beef? [Yes]
    true .
 e. Does the Shell station next door have any gas? [Yes]
 f. Do the tomatoes fit in John’s car trunk? [Yes]
+    fitInCar(john,beef).
+    false.
+    ?- fitInCar(john,tomatoes).
+    true.
