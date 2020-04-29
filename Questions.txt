@@ -71,6 +71,9 @@ b. Is John a vegetarian? [No]
    isVeg(mary).
    true .
 c. Who owns the deodorant in Safeway? [Safeway Corporation]
+   owns(safeway,deodorant).
+   true .
+
 d. Did John have an ounce of ground beef? [Yes]
    hasAtleastOunces(john,1,beef).
    true .

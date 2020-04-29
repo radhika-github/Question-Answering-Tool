@@ -111,7 +111,7 @@ typeOf(meat,food).
 typeOf(chicken,food).
 typeOf(fish,food).
 typeOf(beef,food).
-% Tops Maple road Supermarket is a type of Supermarket.
+% North Berkely Supermarket is a type of Supermarket.
 typeOf(northBerkeleySafeway,supermarket).
 % Soap is a type of skin care product.
 typeOf(soap,skincare).
@@ -133,12 +133,12 @@ typeOf(cash,money).
 %John lives alone
 livesAlone(john).
 %Anyone who lives alone shops alone
-%Hence john shops alone
 shopsAlone(X):-livesAlone(X).
-%john shops tomatoees at safeway yesterday
-%If someone shops alone and buys then he is adult
+%If someone shops alone and if he shops then he is adult
 isa(X,adult):-shop(X,_,_,_),shopsAlone(X).
+%If someone is not an adult, then he is a child
 isa(X,child):- !,\+ isa(X,adult).
+%If someone is not an adult, then he is a child
 isa(X,child):- isa(X,adult), !, fail.
 
 %-----------------------------------------------------------------------------------------------------------------------
@@ -292,5 +292,9 @@ fitInCar(P,W):- spaceOccupied(P,W,Y),carTrunkCapacity(P,X),largerorequal(X,Y).
 isOpen(P,L, T):- isAtStore(P,L,T).
 staffPresent(P,L,T):-isOpen(P,L,T).
 peopleAtStore(P,L,T):-staffPresent(P,L,T).
+
+%-----------------------------------------------------------------------------------------------------------------------
+
+owns(X,Y):-sells(X,Y).
 
 %-----------------------------------------------------------------------------------------------------------------------
