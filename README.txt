@@ -1,8 +1,13 @@
 Steps to run the project
 
-1. Install SWI Prolog
-2. Click on File -> Consult -> Open kb.pl file
-3. Run the prolog commands according to the questions. 
+1. To get wordnet hypernyms, hyponyms and holonyms of a given word run the Code.py file.
+   To run this file install python. 
+   Open the directory containing this file in terminal.
+   Run python Code.py command.
+   You can see that a new file is generated in output directory.
+2. Install SWI Prolog
+3. Click on File -> Consult -> Open kb.pl file.
+4. Run the prolog commands according to the questions in SWI Prolog.
 
 Please find below summary of the Prolog commands required to ask questions and their respective answers obtained from knowledge base.
 

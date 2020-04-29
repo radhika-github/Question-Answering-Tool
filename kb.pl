@@ -118,7 +118,7 @@ typeOf(northBerkeleySafeway,supermarket).
 typeOf(soap,skincare).
 %Tomatoes are type of vegetables
 typeOf(tomatoes,vegetable).
-%Deodrant is type of skincare
+%Deodorant is type of skincare
 typeOf(deodorant,skincare).
 % Credit card is a type of money
 typeOf(creditcard,money).
@@ -171,7 +171,7 @@ hasatleast(P,Y,I):- number(P,X,I),largerorequal(X,Y).
 
 %-----------------------------------------------------------------------------------------------------------------------
 
-% If someone shopped for something somewhere sometime, then they bought that thing.
+% If someone shopped for something somewhere some time, then they bought that thing.
 bought(X,Y):-shop(X,Y,_,_).
 
 % If John bought something and if that thing is meat then John bought meat
@@ -182,10 +182,10 @@ buys(X,Y):-bought(X,Z), typeOf(Z,Y).
 % Mary was buying tomatoes at North Berkeley Safeway at the same time as john.
 shop(mary,tomatoes,northBerkeleySafeway,T):-shop(john,tomatoes,northBerkeleySafeway,T).
 
-% If someone buys something at some store at sometime then that person is at that store at that time.
+% If someone buys something at some store at some time then that person is at that store at that time.
 isAtStore(X,Y,Z):-shop(X,_,Y,Z).
 
-% If someone buys something at some stall at sometime then that person is at that stall at that time.
+% If someone buys something at some stall at some time then that person is at that stall at that time.
 isAtStall(X,Y,Z):-shop(X,Y,_,Z).
 
 % If someone is at some stall at some store, and if someone else is also at the same stall and same store,
@@ -222,9 +222,9 @@ after(today,yesterday).
 after(tomorrow,yesterday).
 after(tomorrow,today).
 
-% Someone has something at sometime if he has shopped for it.
+% Someone has something at some time if he has shopped for it.
 has(X,Y,T):-shop(X,Y,_,T).
-% Someone eats something at sometime if someone has something at that time and if that thing can be eaten.
+% Someone eats something at some time if someone has something at that time and if that thing can be eaten.
 whatWill(X,Y,T,eatThem):- has(X,Y,K), can(Y,eaten),after(T,K).
 
 %-----------------------------------------------------------------------------------------------------------------------
@@ -246,13 +246,13 @@ hasbranch(X,U),typeOf(U,supermarket),available(Y,supermarket).
 % If anyone shops at someplace for anything at some times then they pay money for that thing at that time at that place.
 pay(X,Z,Y,T):-shop(X,_,Y,T).
 
-% If someone has to pay money at sometime at a store which is of some type then they must bring that money to that place at that time.
+% If someone has to pay money at some time at a store which is of some type then they must bring that money to that place at that time.
 bring(X,Z,Y,T):-pay(X,Z,K,T),typeOf(K,Y),typeOf(Z,money).
 
 %-----------------------------------------------------------------------------------------------------------------------
 
 % If anyone shops at someplace for anything at some times then they pay money for that thing at that time at that place.
-% If someone who pays money at sometime at someplace of some type then he spent money that time in that type of place
+% If someone who pays money at some time at someplace of some type then he spent money that time in that type of place
 spentMoney(X,Z,T) :-pay(X,W,Y,T),typeOf(Y,Z),typeOf(W,money).
 
 % Define after and before yesterday
